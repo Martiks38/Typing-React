@@ -1,23 +1,12 @@
-import { ReactNode } from 'react'
-
 import Head from 'next/head'
 
 import Header from 'components/Header'
 import Main from 'components/Main'
 
-type Props = {
-  children?: ReactNode
-  title?: string
-}
-
-// const $html = document.querySelector('html')
-// if ($html) $html.setAttribute('lang', 'es')
-
-function Applayout({ title }: Props) {
+function Applayout({ children }) {
   return (
     <>
       <Head>
-        <title>{title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#033397" />
@@ -29,7 +18,7 @@ function Applayout({ title }: Props) {
       </Head>
 
       <Header />
-      <Main />
+      <Main>{children}</Main>
     </>
   )
 }

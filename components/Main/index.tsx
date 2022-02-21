@@ -1,13 +1,7 @@
-import Image from 'next/image'
-
-import background from 'public/background.gif'
-
-function Main() {
+function Main({ children }) {
   return (
     <>
-      <main>
-        {/* <Image alt="" src={background} layout="responsive" objectFit="cover" /> */}
-      </main>
+      <main>{children}</main>
       <style jsx>
         {`
           main {

@@ -1,22 +1,37 @@
 import Link from 'next/link'
-import styles from './Navbar.module.scss'
+
+import { useText } from 'hooks/useText'
+
+const routes = ['/', '/practice', '/results', '/feedback']
 
 function Navbar() {
+  const { navHeader, selectLanguage, handleLanguage } = useText()
+
   return (
-    <nav className={styles.nav}>
-      <Link href="/">
-        <a>Inicio</a>
-      </Link>
-      <Link href="/practicar">
-        <a>Practicar</a>
-      </Link>
-      <Link href="/estadisticas">
-        <a>Estadísticas</a>
-      </Link>
-      <Link href="/comentarios">
-        <a>Comentarios</a>
-      </Link>
-    </nav>
+    <>
+      <nav>
+        {navHeader.map((el, index) => (
+          <Link key={Date.now() * Math.random()} href={routes[index]}>
+            <a>{el}</a>
+          </Link>
+        ))}
+        <select name="lang" onChange={handleLanguage}>
+          {Object.entries(selectLanguage).map((el) => (
+            <option key={Date.now() * Math.random()} value={el[0]}>
+              {el[1]}
+            </option>
+          ))}
+        </select>
+      </nav>
+      <style jsx>{`
+        nav > a {
+          color: #000;
+          padding-right: 2rem;
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+      `}</style>
+    </>
   )
 }
 
