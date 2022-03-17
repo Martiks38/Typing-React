@@ -1,0 +1,32 @@
+@use '../ImageSonic';
+
+.figure {
+  position: relative;
+  width: 40vw;
+  min-width: 18.75rem;
+  height: 18rem;
+  margin: 0 auto;
+  background: url('../../../public/background.webp') 0 100% / cover repeat-x;
+  border: 4px solid var(--red);
+  border-radius: 12px;
+  box-shadow: 0 3px 10px var(--box-shadow);
+  animation: 6s linear infinite backgroundMove;
+  &__figcaption {
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    right: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+@keyframes backgroundMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -80vh 0;
+  }
+}

@@ -1,22 +1,16 @@
 import { useState, useEffect } from 'react'
 import LanguageContext from './LanguageContext'
-import {
-  ContentOfComponents,
-  translations,
-  LANGUAGE_DEFAULT
-} from 'consts/translations'
+import { translations } from 'consts/translations'
+import { LANGUAGE_DEFAULT } from 'consts/values'
+import { ContentOfComponents, props } from 'types'
 
-interface ContextProps {
-  children: JSX.Element | JSX.Element[]
-}
-
-function LanguageContextProvider({ children }: ContextProps) {
+function LanguageContextProvider({ children }: props) {
   const [lang, setLang] = useState(LANGUAGE_DEFAULT)
   const [texts, setTexts] = useState<ContentOfComponents>(translations[lang])
 
   useEffect(() => {
     let lang = localStorage.getItem('lang')
-    if (lang !== null) {
+    if (lang) {
       setLang(lang)
       setTexts(translations[lang])
     }
@@ -30,10 +24,12 @@ function LanguageContextProvider({ children }: ContextProps) {
     const value = e.target.value
     setLang(value)
     setTexts(translations[value])
+
+    if (window.location.pathname === '/practice') location.reload()
   }
 
   return (
-    <LanguageContext.Provider value={{ texts, handleLanguage }}>
+    <LanguageContext.Provider value={{ lang, texts, handleLanguage }}>
       {children}
     </LanguageContext.Provider>
   )

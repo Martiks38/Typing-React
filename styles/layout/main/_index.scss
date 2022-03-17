@@ -1,0 +1,7 @@
+.main {
+  display: grid;
+  max-height: max-content;
+  min-height: calc(100vh - 5rem);
+  background: var(--background-title);
+  justify-items: center;
+}

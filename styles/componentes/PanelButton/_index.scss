@@ -1,0 +1,7 @@
+.panelButton {
+  display: flex;
+  justify-content: space-evenly;
+  &_noView {
+    opacity: 0;
+  }
+}

@@ -1,33 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap');
+@use './componentes';
+@use './layout';
+@use './query';
 
-// #Colors
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-// Red
-$-redWhite: rgb(250, 159, 137);
-$-redLight: rgb(253, 110, 74);
-$-red: rgb(233, 0, 35);
-$-redDark: rgb(117, 21, 27);
-
-// Blue
-$-blueLight2: rgb(87, 196, 255);
-$-blueLight: rgb(38, 155, 216);
-$-blue: rgb(3, 51, 151);
-$-blueDark: rgb(3, 18, 74);
-$-blueDark2: rgb(0, 52, 163);
-
-// Miscelanea
-$-backgroundTitle: #eee;
-
-$-borderRadius: 1.5rem;
-
-$-shadowModal: #000;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Roboto, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
 }
 
 a {
@@ -35,18 +23,26 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 :root {
-  --red-white: #{$-redWhite};
-  --red-light: #{$-redLight};
-  --red: #{$-red};
-  --red-dark: #{$-redDark};
-  --blue-light: #{$-blueLight2};
-  --blue: #{$-blue};
-  --blue-dark: #{$-blueDark2};
-  --background-title: #{$-backgroundTitle};
-  --shadow-modal: #{$-shadowModal};
+  --red-light: rgb(253, 110, 74);
+  --red: rgb(233, 0, 35);
+  --red-title: rgb(255, 0, 0);
+  --red-warning: rgb(226, 39, 29);
+  --blue-light: rgb(71, 191, 255);
+  --blue-light2: rgb(87, 196, 255);
+  --blue: rgb(3, 51, 151);
+  --button-blue-border: rgb(0, 113, 199);
+  --button-blue-background: rgb(75, 175, 251);
+  --blue-title: rgb(28, 0, 158);
+  --blue-dark: rgb(12, 78, 129);
+  --blue-dark2: rgb(0, 52, 163);
+  --blue-border: rgb(2, 137, 194);
+  --yellow-border: rgb(216, 227, 8);
+  --yellow-ring: rgb(254, 242, 104);
+  --background-error: rgb(238, 132, 132);
+  --background-title: #eee;
+  --background-title-87: rgba(238, 238, 238, 0.87);
+  --background-selector: #88959c;
+  --box-shadow: #666d;
+  --disabled-color: #aaa;
 }

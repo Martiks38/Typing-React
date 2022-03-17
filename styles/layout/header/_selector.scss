@@ -1,0 +1,11 @@
+.langSelector {
+  padding: 0.4rem;
+  background-color: var(--background-selector);
+  border: 2px solid var(--blue-dark);
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: Roboto, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  word-spacing: 1ch;
+  cursor: pointer;
+}

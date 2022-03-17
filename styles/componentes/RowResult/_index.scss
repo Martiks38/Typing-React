@@ -1,0 +1,8 @@
+.td {
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  &:first-child {
+    padding-right: 2em;
+    text-align: left;
+  }
+}

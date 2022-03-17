@@ -1,0 +1,48 @@
+.container {
+  width: 80vw;
+  &__center {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  &__title {
+    font-size: 3em;
+    text-align: center;
+    &_color {
+      color: transparent;
+      background-position: center center;
+      background-clip: text;
+      background-image: linear-gradient(
+        var(--blue-title) 45%,
+        var(--red-title)
+      );
+    }
+  }
+  &__game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+  }
+  &__fondo {
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+    min-width: 58ch;
+    height: 30vh;
+    border-radius: 8px;
+    border: solid 0.25em var(--yellow-border);
+    background: url('../../../public/background.webp') 0 / contain repeat-x;
+  }
+  &__results {
+    display: grid;
+    padding: 0.5em 1em 4em;
+    grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
+    gap: 2em;
+    justify-content: center;
+  }
+  &_viewResults {
+    width: 100%;
+  }
+}

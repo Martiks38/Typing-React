@@ -1,0 +1,23 @@
+.imageSonic {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  transition: none;
+  &_s {
+    width: 45px;
+    height: 45px;
+  }
+  &_animationHome {
+    top: 57%;
+    left: 15%;
+  }
+  &_animationGame {
+    top: 43%;
+    transition: transform linear 1s;
+    &_inGame {
+      top: 54%;
+    }
+  }
+}

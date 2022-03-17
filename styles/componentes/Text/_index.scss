@@ -1,0 +1,26 @@
+@use './InputText';
+
+.practiceText {
+  max-width: 80%;
+  min-width: 40ch;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 2rem;
+  border: 4px solid var(--blue);
+  border-radius: 0.6rem;
+  text-align: left;
+  line-height: 1.7;
+  font-family: Verdana;
+  font-size: 1.25rem;
+  &__highlighredWord {
+    color: var(--red);
+    text-decoration: underline;
+  }
+  &__text {
+    margin: 0;
+    margin-bottom: 0.8em;
+    &_blur {
+      filter: blur(8px);
+    }
+  }
+}

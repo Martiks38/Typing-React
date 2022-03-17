@@ -1,0 +1,40 @@
+.boardError {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-areas: 'img msg';
+  place-items: center;
+  position: relative;
+  max-width: 650px;
+  width: 60%;
+  min-width: 600px;
+  height: 350px;
+  padding: 1rem;
+  border: solid 4px var(--button-blue-border);
+  border-radius: 2rem;
+  box-shadow: 0 3px 8px var(--box-shadow);
+  column-gap: 0.5rem;
+  &__img {
+    grid-area: img;
+    padding: 0.5rem;
+    background: url('../../../public/errorBackground.webp') 0 / cover no-repeat;
+    border: ridge 4px var(--yellow-ring);
+    border-radius: 9999px;
+  }
+  &__msg {
+    grid-area: msg;
+    text-align: center;
+  }
+}
+
+.msg {
+  &__title {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  &__text {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 2.2rem;
+  }
+}

@@ -1,0 +1,15 @@
+.textInput {
+  margin-right: 1.8em;
+  padding: 0.5rem;
+  border: 3px solid var(--blue);
+  border-radius: 8px;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    background-color: var(--disabled-color);
+  }
+  &_wrongWord {
+    background-color: var(--background-error);
+  }
+}
