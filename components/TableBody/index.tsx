@@ -1,7 +1,7 @@
 import { useTranslations } from 'hooks/useTranslations'
-import RowResult from 'components/RowResult'
+import RowResult from 'components/TableRow'
 
-function TableBody({ results, short = false }) {
+function TableBody({ results }) {
   const { practiceResults } = useTranslations()
 
   return (
@@ -10,13 +10,7 @@ function TableBody({ results, short = false }) {
         <RowResult
           key={Math.floor(Date.now() * Math.random())}
           stat={practiceResults.stats[index]}
-          value={
-            short && index !== 1
-              ? value
-              : index === 1 || index === 3
-              ? value + '%'
-              : value
-          }
+          value={index < 3 ? value : value + '%'}
         />
       ))}
     </tbody>

@@ -1,5 +1,15 @@
-.nav__link {
-  padding-right: 2rem;
-  font-size: 1.2rem;
-  font-weight: 700;
+.nav {
+  display: flex;
+  justify-content: space-evenly;
+  width: 300px;
+  &__link {
+    padding: 0.65rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    &:hover {
+      background-color: var(--blue-border);
+      border-radius: 0.75rem;
+      transition: background-color 0.3s ease-in-out;
+    }
+  }
 }

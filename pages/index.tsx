@@ -5,6 +5,7 @@ import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   const { home } = useTranslations()
+
   return (
     <>
       <Head>

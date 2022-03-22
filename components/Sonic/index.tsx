@@ -6,6 +6,8 @@ function Sonic({ img }) {
       <Image
         src={img}
         alt="play"
+        width={80}
+        height={80}
         layout="responsive"
         objectFit="contain"
         priority

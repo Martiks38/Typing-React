@@ -1,7 +1,7 @@
 function Loader() {
   return (
     <svg viewBox="0 0 100 100" xmlSpace="preserve">
-      <circle fill="#222" cx={6} cy={50} r={5}>
+      <circle fill="#222" cx={10} cy={50} r={10}>
         <animate
           attributeName="opacity"
           dur="1s"
@@ -10,7 +10,7 @@ function Loader() {
           begin={0.1}
         />
       </circle>
-      <circle fill="#222" cx={26} cy={50} r={5}>
+      <circle fill="#222" cx={50} cy={50} r={10}>
         <animate
           attributeName="opacity"
           dur="1s"
@@ -19,7 +19,7 @@ function Loader() {
           begin={0.2}
         />
       </circle>
-      <circle fill="#222" cx={46} cy={50} r={5}>
+      <circle fill="#222" cx={90} cy={50} r={10}>
         <animate
           attributeName="opacity"
           dur="1s"

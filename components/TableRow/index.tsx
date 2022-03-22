@@ -1,4 +1,4 @@
-function RowResult({ stat, value }) {
+function TableRow({ stat, value }) {
   return (
     <tr>
       <td className="td">{stat}</td>
@@ -7,4 +7,4 @@ function RowResult({ stat, value }) {
   )
 }
 
-export default RowResult
+export default TableRow

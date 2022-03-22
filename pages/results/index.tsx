@@ -1,5 +1,6 @@
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useTranslations } from 'hooks/useTranslations'
 import TableBody from 'components/TableBody'
 import type { savedResult } from 'types'
@@ -7,8 +8,14 @@ import type { savedResult } from 'types'
 function Results() {
   const [results, setResults] = useState<savedResult[]>()
   const [bestResult, setBestResult] = useState('')
+  const [btnUp, setBtnUp] = useState(false)
 
   const { navHeader, resultsPage } = useTranslations()
+
+  const upPage = () => {
+    console.log('Subir')
+    window.scrollTo(0, 0)
+  }
 
   useLayoutEffect(() => {
     document.querySelector('.container')?.classList.add('container_viewResults')
@@ -33,6 +40,18 @@ function Results() {
         .querySelector('.container')
         ?.classList.remove('container_viewResults')
   }, [resultsPage])
+
+  useEffect(() => {
+    const viewBtn = () => {
+      const pageYOffSet = window.scrollY
+
+      pageYOffSet < 1000 ? setBtnUp(false) : setBtnUp(true)
+    }
+
+    window.addEventListener('scroll', viewBtn)
+
+    return () => window.removeEventListener('scroll', viewBtn)
+  }, [])
 
   return (
     <>
@@ -63,7 +82,7 @@ function Results() {
                 key={Math.floor(Date.now() * Math.random())}
                 className="results__table"
               >
-                <TableBody results={result} short />
+                <TableBody results={result} />
               </table>
             ))}
           </div>
@@ -72,7 +91,22 @@ function Results() {
           </footer>
         </>
       )}
-      {!results && <h1>{resultsPage.withoutResults}</h1>}
+      {!results && (
+        <h1 className="container__title">{resultsPage.withoutResults}</h1>
+      )}
+      {btnUp && (
+        <button className="button button_up" onClick={() => upPage()}>
+          <Image
+            src="/up.webp"
+            alt=""
+            aria-label="Ir a la parte superior de la página"
+            width={60}
+            height={60}
+            layout="intrinsic"
+            objectFit="contain"
+          />
+        </button>
+      )}
     </>
   )
 }

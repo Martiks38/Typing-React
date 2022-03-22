@@ -1,174 +1,125 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { ChangeEvent, lazy, Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Image from 'next/image'
 import { useTranslations } from 'hooks/useTranslations'
-import convertMillisecondToMinuteSecond from 'utils/convertMillisecondToMinuteSecond'
 import TableBody from 'components/TableBody'
 import Loader from 'components/Loader'
-import { vars } from 'consts/values'
-import { results } from 'types'
+import type { results } from 'types'
 
 const LineGraph = lazy(() => import('components/LineGraph'))
 
 function ResultBox() {
-  const router = useRouter()
-  const query = router.query
-
-  const [viewPage, setViewPage] = useState(false)
   const [viewResults, setViewResults] = useState(false)
   const [viewGraph, setViewGraph] = useState(false)
-
-  let [wpm, errors, letters, time] = Object.values(query).map((el) =>
-    parseInt(el as string)
-  )
+  const [results, setResults] = useState<results>({} as results)
 
   const { practiceResults } = useTranslations()
-
-  let results = useMemo<results>(() => {
-    let porcentualErrors = Math.floor((errors / letters) * 100)
-    let precision = 100 - porcentualErrors
-    let timePlayed = convertMillisecondToMinuteSecond(time)
-
-    return {
-      wpm,
-      precision,
-      errors,
-      porcentualErrors,
-      timePlayed,
-    }
-  }, [wpm, errors, letters, time])
 
   useEffect(() => {
     let $container = document.querySelector('.container')
 
+    let temp = sessionStorage.getItem('resultTemp')
+
+    let time = setTimeout(() => {
+      setViewResults(true)
+    }, 1300)
+
     if ($container) $container.classList.add('container__center')
+    if (temp) setResults(JSON.parse(temp))
 
     return () => {
       if ($container) $container.classList.remove('container__center')
+      clearTimeout(time)
     }
   }, [])
 
   useEffect(() => {
-    let time = setTimeout(() => {
-      setViewResults(true)
+    const focusResultbox = () => {
+      const width = window.innerWidth
 
-      let prevResults = localStorage.getItem('resultsTypingSo')
-
-      if (prevResults) {
-        let parsePrevResults = JSON.parse(prevResults)
-
-        localStorage.setItem(
-          'resultsTypingSo',
-          JSON.stringify([
-            ...parsePrevResults,
-            {
-              wpm: results.wpm,
-              errors: results.errors,
-              time: results.timePlayed,
-            },
-          ])
-        )
-      } else {
-        localStorage.setItem(
-          'resultsTypingSo',
-          JSON.stringify([
-            {
-              wpm: results.wpm,
-              errors: results.errors,
-              time: results.timePlayed,
-            },
-          ])
-        )
-      }
-    }, 1300)
-
-    return () => clearTimeout(time)
-  }, [results])
-
-  useEffect(() => {
-    let validate = true
-    if (Object.keys(query).length !== 0) {
-      vars.forEach((variable) => {
-        if (!query.hasOwnProperty(variable)) {
-          router.push('/practice')
-          validate = false
-        }
-      })
-      Object.values(query).forEach((el) => {
-        let isNumber = parseInt(el as string)
-        if (Number.isNaN(isNumber) || isNumber < 0) {
-          router.push('/practice')
-          validate = false
-        }
-      })
-
-      if (validate) setViewPage(true)
+      if (width <= 900) window.scrollTo(0, 100)
     }
 
-    let time = setTimeout(() => {
-      if (!document.querySelector('.resultBox__data_noView'))
-        router.push('/practice')
-    }, 400)
-
-    return () => clearTimeout(time)
-  }, [query, router])
+    if (viewGraph) {
+      window.addEventListener('resize', focusResultbox)
+    }
+    return () => window.removeEventListener('resize', focusResultbox)
+  }, [viewGraph])
 
   return (
     <>
-      {viewPage && (
-        <div
-          className={
-            !viewResults ? 'resultBox resultBox_animation' : 'resultBox'
-          }
-        >
-          <h1 className="resultBox__title">{practiceResults.title}</h1>
-          <div className="resultBox__data">
-            {viewGraph && (
-              <Suspense
-                fallback={
-                  <div className="canvas">
-                    <Loader />
-                  </div>
-                }
-              >
-                <div className="canvas">
-                  <LineGraph />
+      <div
+        className={!viewResults ? 'resultBox resultBox_animation' : 'resultBox'}
+      >
+        <h1 className="resultBox__title">{practiceResults.title}</h1>
+        <div className="resultBox__data">
+          {viewGraph && (
+            <Suspense
+              fallback={
+                <div className="canvas__svg">
+                  <Loader />
                 </div>
-              </Suspense>
-            )}
-            <table
-              className={
-                !viewResults ? 'resultBox__data_noView' : 'resultBox__data_view'
               }
             >
-              <TableBody results={results} />
-            </table>
-          </div>
-          <div
+              <div className="canvas">
+                <LineGraph />
+              </div>
+            </Suspense>
+          )}
+          <table
             className={
-              !viewResults ? 'panelButton panelButton_noView' : 'panelButton'
+              !viewResults ? 'resultBox__data_noView' : 'resultBox__data_view'
             }
           >
-            {!viewGraph && (
-              <button
-                className={!viewResults ? '' : 'button button_replay_view'}
-                onClick={() => setViewGraph(true)}
-              >
-                Ver gráfico
-              </button>
-            )}
-            <Link href="/practice">
-              <a
-                className={
-                  !viewResults ? '' : 'button button_replay button_replay_view'
-                }
-              >
-                {practiceResults.playAgain}
-              </a>
-            </Link>
-          </div>
+            <TableBody results={results} />
+          </table>
         </div>
-      )}
+        <div
+          className={
+            !viewResults ? 'panelButton panelButton_noView' : 'panelButton'
+          }
+        >
+          {!viewGraph && (
+            <button
+              className={!viewResults ? '' : 'button button_replay'}
+              onClick={() => setViewGraph(true)}
+            >
+              Ver gráfico
+            </button>
+          )}
+          <Link href="/practice">
+            <a
+              className={
+                !viewResults
+                  ? ''
+                  : !viewGraph
+                  ? 'button button_replay button_replay'
+                  : 'button button_replay button_replay_noView'
+              }
+            >
+              {practiceResults.playAgain}
+            </a>
+          </Link>
+        </div>
+        {viewGraph && (
+          <Link href="/practice">
+            <a
+              className={
+                !viewResults ? '' : 'button button_replay button_replay_icon'
+              }
+            >
+              <Image
+                src="/reload.webp"
+                alt="Volver a jugar"
+                width={100}
+                height={100}
+                layout="intrinsic"
+                objectFit="contain"
+              />
+            </a>
+          </Link>
+        )}
+      </div>
     </>
   )
 }

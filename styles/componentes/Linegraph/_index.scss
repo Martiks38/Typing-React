@@ -3,4 +3,7 @@
   width: 25em;
   height: auto;
   align-self: center;
+  &__svg {
+    transform: scale(0.5);
+  }
 }
