@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import { usePerformanceData } from 'hooks/usePerformanceData'
 import { useTranslations } from 'hooks/useTranslations'
+import createPerformance from 'utils/createPerformance'
 import highlightedWord from 'utils/highlightedWord'
-import type { ChangeInput, performance } from 'types'
+import convertMillisecondToMinuteSecond from 'utils/convertMillisecondToMinuteSecond'
+import type { ChangeInput } from 'types'
 
 function Text({ text, isPlay, setIsPlay, setVelocity }) {
   const [wordInput, setWordInput] = useState('')
@@ -17,13 +20,12 @@ function Text({ text, isPlay, setIsPlay, setVelocity }) {
 
   const { lang } = useTranslations()
 
+  const { performance, clearData, newData } = usePerformanceData()
+
   const inputRef = useRef<HTMLInputElement>(null)
   const textRef = useRef('')
-  const time = useRef(0)
-  const performance: { current: performance[] } = useRef([
-    { wpm: null, time: 0 },
-  ])
-  const data = useRef<performance>({ wpm: 0, time: 0 })
+  const timeInGame = useRef(0)
+  const data = useRef(createPerformance(0, 0))
 
   const textSplit = useMemo(() => text.split(' '), [text])
 
@@ -48,16 +50,16 @@ function Text({ text, isPlay, setIsPlay, setVelocity }) {
       inputRef.current?.focus()
     }, 3000)
 
+    return () => clearTimeout(start)
+  }, [])
+
+  useEffect(() => {
     let time = setInterval(() => {
-      if (data.current.wpm !== 0)
-        performance.current = [...performance.current, data.current]
+      if (data.current.wpm !== 0) newData(data.current)
     }, 3000)
 
-    return () => {
-      clearTimeout(start)
-      clearInterval(time)
-    }
-  }, [])
+    return () => clearInterval(time)
+  }, [newData])
 
   useEffect(() => {
     setBlurText(true)
@@ -65,10 +67,10 @@ function Text({ text, isPlay, setIsPlay, setVelocity }) {
 
   useEffect(() => {
     textRef.current = highlightedWord(text, indWrittenWord)
-    time.current = Date.now() - temporizador
+    timeInGame.current = Date.now() - temporizador
 
     let timer = setInterval(() => {
-      setWPM(Math.floor((indWrittenWord * 60000) / time.current))
+      setWPM(Math.floor((indWrittenWord * 60000) / timeInGame.current))
     }, 10)
 
     return () => {
@@ -97,6 +99,7 @@ function Text({ text, isPlay, setIsPlay, setVelocity }) {
 
     if (!isPlay) {
       setIsPlay(true)
+      clearData()
     }
 
     if (
@@ -115,24 +118,57 @@ function Text({ text, isPlay, setIsPlay, setVelocity }) {
         }
       }
     } else {
-      let query = `&wpm=${wpm}&errors=${errors}&letters=${
-        text.split('').length
-      }&time=${time.current}`
+      if (performance[performance.length - 1].time !== data.current.time)
+        newData(data.current)
 
-      performance.current = [...performance.current, ...[data.current]]
+      let prevResults = localStorage.getItem('resultsTypingSo')
 
-      setTimeout(() => {
-        sessionStorage.setItem(
-          'resultTemp',
-          JSON.stringify(performance.current)
-        )
-        router.push({
-          pathname: '/practice/result',
-          query,
+      let timeString = convertMillisecondToMinuteSecond(timeInGame.current)
+
+      let porcentualErrors = Math.floor((errors / text.split('').length) * 100)
+
+      sessionStorage.setItem(
+        'resultTemp',
+        JSON.stringify({
+          wpm,
+          timePlayed: timeString,
+          errors,
+          porcentualErrors,
+          precision: 100 - porcentualErrors,
         })
-      }, 10)
+      )
+
+      if (prevResults) {
+        let parsePrevResults = JSON.parse(prevResults)
+
+        localStorage.setItem(
+          'resultsTypingSo',
+          JSON.stringify([
+            ...parsePrevResults,
+            {
+              wpm,
+              time: timeString,
+              errors,
+            },
+          ])
+        )
+      } else {
+        localStorage.setItem(
+          'resultsTypingSo',
+          JSON.stringify([
+            {
+              wpm,
+              time: timeString,
+              errors,
+            },
+          ])
+        )
+      }
+
+      router.push('/practice/result')
     }
-    data.current = { wpm, time: time.current }
+
+    data.current = createPerformance(wpm, timeInGame.current)
     setVelocity(wpm)
   }
 

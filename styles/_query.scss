@@ -1,9 +1,17 @@
 @media (max-width: 900px) {
-  .box {
+  .resultBox {
     margin-top: 2.5em;
     margin-bottom: 2em;
-    &_container {
+    &__data {
       flex-direction: column-reverse;
+    }
+  }
+  .button_replay {
+    &_icon {
+      display: flex;
+    }
+    &_noView {
+      display: none;
     }
   }
 }
@@ -20,5 +28,8 @@
 @media (prefers-reduced-motion: reduce) {
   .container__figure {
     animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }

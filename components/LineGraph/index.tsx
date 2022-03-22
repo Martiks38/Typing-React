@@ -6,11 +6,11 @@ import {
   PointElement,
   Tooltip,
 } from 'chart.js'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Line } from 'react-chartjs-2'
+import ChartDataContext from 'context/ChartData/ChartDataContext'
 import convertMillisecondToMinuteSecond from 'utils/convertMillisecondToMinuteSecond'
 import type { ChartData } from 'chart.js'
-import type { performance } from 'types'
 
 ChartJS.register(CategoryScale, LineElement, LinearScale, PointElement, Tooltip)
 
@@ -20,6 +20,8 @@ function LineGraph() {
     labels: [],
   })
 
+  const { performance } = useContext(ChartDataContext)
+
   const axisData: { current: { labels: string[]; data: (number | null)[] } } =
     useRef({
       labels: [],
@@ -27,12 +29,7 @@ function LineGraph() {
     })
 
   useEffect(() => {
-    let data = sessionStorage.getItem('resultTemp')
-    let objResult = []
-
-    if (data) objResult = JSON.parse(data)
-
-    objResult.forEach((result: performance) => {
+    performance.forEach((result) => {
       let time = convertMillisecondToMinuteSecond(result.time)
 
       axisData.current.data.push(result.wpm)
@@ -53,7 +50,7 @@ function LineGraph() {
         labels: axisData.current.labels,
       })
     }
-  }, [])
+  }, [performance])
 
   return (
     <Line

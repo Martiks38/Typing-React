@@ -4,13 +4,31 @@
   padding: 0.6rem;
   font-size: 1.2rem;
   border-radius: 8px;
-  &_replay {
-    display: block;
-    font-weight: 600;
-  }
-  &_replay_view {
+  &_up {
+    display: flex;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
     background-color: var(--button-blue-background);
     border: solid 3px var(--button-blue-border);
+    border-radius: 50%;
+  }
+  &_replay {
+    display: flex;
+    border: solid 3px var(--button-blue-border);
+    background-color: var(--button-blue-background);
     transition: opacity 0.4s ease-in-out;
+    &_icon {
+      display: none;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      top: 1.6rem;
+      right: 1.6rem;
+    }
   }
 }

@@ -14,7 +14,7 @@ export const translations: translate = {
     },
     practiceResults: {
       title: 'Resultado',
-      stats: ['wpm', 'Precisión', 'Errores', 'Porcentaje de error', 'Tiempo'],
+      stats: ['wpm', 'Tiempo', 'Errores', 'Porcentaje de errores', 'Precisión'],
       playAgain: 'Jugar otra vez',
     },
     resultsPage: {
@@ -25,13 +25,14 @@ export const translations: translate = {
       withoutResults: 'No has practicado el día de hoy',
       warningMessage: 'LOS RESULTADOS SE REESTABLECEN CADA DÍA',
     },
+    errorPage: 'Sonic no puede viajar a la ubicación',
   },
   en: {
     navHeader: ['Home', 'Practice', 'Results'],
     selectLanguage: {
       en: 'English 🇺🇸',
-      es: 'Spanish 🇪🇸',
       it: 'Italian 🇮🇹',
+      es: 'Spanish 🇪🇸',
     },
     home: {
       title: 'Welcome to TypingSo',
@@ -39,7 +40,7 @@ export const translations: translate = {
     },
     practiceResults: {
       title: 'Result',
-      stats: ['wpm', 'Precision', 'Errors', 'Error rate', 'Time'],
+      stats: ['wpm', 'Time', 'Errors', 'Errors rate', 'Precision'],
       playAgain: 'Play again',
     },
     resultsPage: {
@@ -50,13 +51,14 @@ export const translations: translate = {
       withoutResults: "You haven't practiced today ",
       warningMessage: 'RESULTS RESET EVERY DAY',
     },
+    errorPage: "Sonic can't travel to the location",
   },
   it: {
     navHeader: ['Inizio', 'Praticare', 'Risultati'],
     selectLanguage: {
       it: 'Italiano 🇮🇹',
-      en: 'Inglese 🇺🇸',
       es: 'Spagnolo 🇪🇸',
+      en: 'Inglese 🇺🇸',
     },
     home: {
       title: 'Benvenuto a TypingSo',
@@ -64,7 +66,7 @@ export const translations: translate = {
     },
     practiceResults: {
       title: 'Risultato',
-      stats: ['wpm', 'Precisione', 'Errori', 'Tasso di errore', 'Tempo'],
+      stats: ['wpm', 'Tempo', 'Errori', 'Tasso di errore', 'Precisione'],
       playAgain: 'Gioca di nuovo',
     },
     resultsPage: {
@@ -75,5 +77,6 @@ export const translations: translate = {
       withoutResults: 'Non ti sei allenato oggi',
       warningMessage: 'I RISULTATI SI RIPRISTINO OGNI GIORNO',
     },
+    errorPage: 'Sonic non può viaggiare sul posto',
   },
 }

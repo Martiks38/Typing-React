@@ -2,9 +2,11 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import error from 'public/error.webp'
+import { useTranslations } from 'hooks/useTranslations'
 
 function Custom404() {
   const router = useRouter()
+  const { errorPage } = useTranslations()
 
   useEffect(() => {
     const $container = document.querySelector('.container')
@@ -31,7 +33,7 @@ function Custom404() {
         <div className="boardError__msg">
           <h1 className="msg__title">Error 404</h1>
           <p className="msg__text">
-            Sonic no puede viajar a la ubicación {route}
+            {errorPage} {route}
           </p>
         </div>
       </article>

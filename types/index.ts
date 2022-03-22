@@ -21,6 +21,7 @@ export type ContentOfComponents = {
     withoutResults: string
     warningMessage: string
   }
+  errorPage: string
 }
 
 export type LanguageContextProps = {
@@ -37,10 +38,10 @@ export type translate = {
 
 export type results = {
   wpm: number
-  precision: number
-  errors: number
-  porcentualErrors: number
   timePlayed: string
+  errors: number
+  precision: number
+  porcentualErrors: number
 }
 
 export type savedResult = {
@@ -49,7 +50,13 @@ export type savedResult = {
   time: string
 }
 
-export type performance = {
+export interface performance {
   wpm: number | null
   time: number
+}
+
+export type ChartDataContextProps = {
+  performance: performance[]
+  clearData: () => void
+  newData: (data: performance) => void
 }
