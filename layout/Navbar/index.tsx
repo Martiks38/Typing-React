@@ -33,10 +33,7 @@ function Navbar() {
     <div className="header__container">
       <nav className="nav">
         {navHeader.map((el, index) => (
-          <Link
-            key={Math.floor(Date.now() * Math.random())}
-            href={routes[index]}
-          >
+          <Link key={Date.now() + `${index}`} href={routes[index]}>
             <a className="nav__link">{el}</a>
           </Link>
         ))}
@@ -47,8 +44,8 @@ function Navbar() {
         className="langSelector"
         aria-expanded="false"
       >
-        {Object.entries(selectLanguage).map((el) => (
-          <option key={Date.now() * Math.random()} value={el[0]}>
+        {Object.entries(selectLanguage).map((el, index) => (
+          <option key={Date.now() + `${index}`} value={el[0]}>
             {el[1]}
           </option>
         ))}

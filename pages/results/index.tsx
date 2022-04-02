@@ -77,11 +77,8 @@ function Results() {
             {resultsPage.bestResult}: {bestResult}
           </p>
           <div className="container__results">
-            {results.map((result) => (
-              <table
-                key={Math.floor(Date.now() * Math.random())}
-                className="results__table"
-              >
+            {results.map((result, index) => (
+              <table key={Date.now() + `${index}`} className="results__table">
                 <TableBody results={result} />
               </table>
             ))}

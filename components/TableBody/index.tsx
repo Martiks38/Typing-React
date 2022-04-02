@@ -8,7 +8,7 @@ function TableBody({ results }) {
     <tbody>
       {Object.values(results).map((value, index) => (
         <RowResult
-          key={Math.floor(Date.now() * Math.random())}
+          key={Date.now() + `${index}`}
           stat={practiceResults.stats[index]}
           value={index < 3 ? value : value + '%'}
         />
