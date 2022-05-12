@@ -16,7 +16,7 @@ function Custom404() {
     return () => $container?.classList.remove('container__center')
   }, [])
 
-  let route = `https://www.typingso${router.asPath}`
+  let route = `https://www.typingso.vercel.app${router.asPath}`
 
   return (
     <>

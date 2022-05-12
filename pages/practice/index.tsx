@@ -12,7 +12,7 @@ const Practice = () => {
 
   useEffect(() => {
     window
-      .fetch('https://www.typingso/api/text')
+      .fetch('https://typingso.vercel.app/api/text')
       .then((res) => res.json())
       .then((data) => setTexts(data))
   }, [])
