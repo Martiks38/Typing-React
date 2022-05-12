@@ -16,7 +16,7 @@ function Custom404() {
     return () => $container?.classList.remove('container__center')
   }, [])
 
-  let route = `http://localhost:3000${router.asPath}`
+  let route = `https://www.typingso${router.asPath}`
 
   return (
     <>

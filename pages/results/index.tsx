@@ -58,14 +58,15 @@ function Results() {
       <Head>
         <title>{navHeader[2]}</title>
         <meta name="robots" content="noindex, nofollow" />
+        <meta
+          name="description"
+          content="Mira tu progreso a través de los resultados de tus práticas diarias"
+        />
         <meta property="og:title" content={navHeader[2]} />
         <meta
           property="og:description"
           content="Mira tu progreso a través de los resultados de tus práticas diarias"
         />
-        <meta property="type" content="website" />
-        <meta property="url" content="http://localhost:3000/results" />
-        <meta property="site_name" content="TypingSo" />
         <meta name="robots" content="noindex,nofollow" />
       </Head>
       {results && (
